@@ -35,6 +35,9 @@ public class Vistaa extends javax.swing.JFrame {
     private SimuladorArbolBinario simulador = new SimuladorArbolBinario();
     private MainPanel mainpanel;
     private  BufferedImage image;
+    private int sis;
+    private int widt=600;
+    private int eigt=300;
     /**
      * Creates new form Vista
      */
@@ -256,15 +259,14 @@ public class Vistaa extends javax.swing.JFrame {
                 try{
                     
                     image = getScreenShot(this.simulador.getDibujo());
-                                       mainpanel=new MainPanel(image);
-                    mainpanel.setBounds(500, 500, 1720, 1720);
-                    mainpanel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-                   // mainpanel.setBackground(Color.red);
-                   
+                     mainpanel=new MainPanel(image);
+                    mainpanel.setBounds(0, 0, image.getHeight(),image.getWidth());
+                    mainpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    mainpanel.setForeground(Color.GRAY);
                     
-                   // mainpanel.setForeground(Color.black);
-                   
-                    mainpanel.setLocation(0,0);
+                    mainpanel.newim(sis);
+                    
+                 
                     this.jInternalFrame2.add(mainpanel, BorderLayout.CENTER);
                     mainpanel.setVisible(true);
                    this.simulador.getDibujo().setVisible(false);
@@ -305,10 +307,19 @@ public class Vistaa extends javax.swing.JFrame {
          
     }
     public BufferedImage getScreenShot(JPanel panelito){
-            BufferedImage bi=new BufferedImage(panelito.getWidth()+10000,panelito.getHeight()+1000,BufferedImage.TYPE_INT_RGB);
+            
+            BufferedImage bi=new BufferedImage(widt,this.eigt,BufferedImage.TYPE_INT_RGB);
+           
+            this.widt=this.widt+55;
+            this.eigt=this.eigt+40;
+            //JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(bi)));
+            sis=(int) (bi.getWidth());
+            
+            panelito.setSize((bi.getWidth()),0);
+            panelito.setLocation(sis+50, 0);
             panelito.paint(bi.getGraphics());
-           bi.setRGB(0, 0, 000);
-                    System.out.println("pintdo");
+             System.out.println(sis);
+                    
                    
             return bi;
            

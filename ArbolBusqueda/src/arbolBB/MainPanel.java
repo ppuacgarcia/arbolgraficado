@@ -26,16 +26,19 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
     private double prevZoomFactor = 1;
     private boolean zoomer;
     private boolean dragger;
+    private boolean newimg=false;
     private boolean released;
     private double xOffset = 0;
     private double yOffset = 0;
     private int xDiff;
     private int yDiff;
     private Point startPoint;
+    private int center;
 
     public MainPanel(BufferedImage image) {
-
+        //this.xOffset=-3550;     
         this.image = image;
+        
         initComponent();
 
     }
@@ -48,10 +51,11 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
 
     @Override
     public void paint(Graphics g) {
+       
         super.paint(g);
 
         Graphics2D g2 = (Graphics2D) g;
-
+       
         if (zoomer) {
             AffineTransform at = new AffineTransform();
 
@@ -81,8 +85,18 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
                 yOffset += yDiff;
                 dragger = false;
             }
+            
 
         }
+        if(newimg){
+             AffineTransform at = new AffineTransform();
+             at.translate(xOffset, yOffset);
+             xOffset -= 55;
+            // yOffset += yDiff;
+                g2.transform(at);
+             this.newimg=false;
+        }
+        
 
         // All drawings go here
         
@@ -107,7 +121,11 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
             repaint();
         }
     }
-
+    public void newim(int center){
+        this.newimg=true;
+        this.center=center;
+    }
+    
     @Override
     public void mouseDragged(MouseEvent e) {
         Point curPoint = e.getLocationOnScreen();
@@ -125,7 +143,8 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        
+        
     }
 
     @Override
