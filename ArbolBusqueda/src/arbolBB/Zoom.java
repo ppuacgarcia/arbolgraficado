@@ -18,24 +18,26 @@ import javax.swing.JPanel;
  * @author Thanasis1101
  * @version 1.0
  */
-public class MainPanel extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener {
+public class Zoom extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener {
     
     private final BufferedImage image;
     
-    private double zoomFactor = 1;
-    private double prevZoomFactor = 1;
+    private double FactorZoom = 1;
+    private double FactorZoomAnt = 1;
     private boolean zoomer;
-    private boolean dragger;
+    private boolean presionado;
     private boolean newimg=false;
-    private boolean released;
-    private double xOffset = 0;
-    private double yOffset = 0;
-    private int xDiff;
-    private int yDiff;
-    private Point startPoint;
-    private int center;
+    private boolean soltado;
+    private double posX = 0;
+    private double posY = 0;
+    private int difX;
+    private int difY;
+    private Point inicio;
 
-    public MainPanel(BufferedImage image) {
+    private double contador=0;
+    
+
+    public Zoom(BufferedImage image) {
         //this.xOffset=-3550;     
         this.image = image;
         
@@ -54,53 +56,54 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
        
         super.paint(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D graficos = (Graphics2D) g;
        
-        if (zoomer) {
+        if (zoomer==true) {
             AffineTransform at = new AffineTransform();
 
             double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
             double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
 
-            double zoomDiv = zoomFactor / prevZoomFactor;
+            double zoomDiv = FactorZoom / FactorZoomAnt;
 
-            xOffset = (zoomDiv) * (xOffset) + (1 - zoomDiv) * xRel;
-            yOffset = (zoomDiv) * (yOffset) + (1 - zoomDiv) * yRel;
+            posX = (zoomDiv) * (posX) + (1 - zoomDiv) * xRel;
+            posY = (zoomDiv) * (posY) + (1 - zoomDiv) * yRel;
 
-            at.translate(xOffset, yOffset);
-            at.scale(zoomFactor, zoomFactor);
-            prevZoomFactor = zoomFactor;
-            g2.transform(at);
+            at.translate(posX, posY);
+            at.scale(FactorZoom, FactorZoom);
+            FactorZoomAnt = FactorZoom;
+            graficos.transform(at);
             zoomer = false;
         }
 
-        if (dragger) {
+        if (presionado==true) {
             AffineTransform at = new AffineTransform();
-            at.translate(xOffset + xDiff, yOffset + yDiff);
-            at.scale(zoomFactor, zoomFactor);
-            g2.transform(at);
+            at.translate(posX + difX, posY + difY);
+            at.scale(FactorZoom, FactorZoom);
+            graficos.transform(at);
 
-            if (released) {
-                xOffset += xDiff;
-                yOffset += yDiff;
-                dragger = false;
+            if (soltado) {
+                posX += difX;
+                posY+= difY;
+                presionado = false;
             }
             
 
         }
-        if(newimg){
-             AffineTransform at = new AffineTransform();
-             at.translate(xOffset, yOffset);
-             xOffset -= 55;
-            // yOffset += yDiff;
-                g2.transform(at);
-             this.newimg=false;
+        if(newimg==true){ 
+            
+            AffineTransform at = new AffineTransform();
+            this.posX -=contador*55;
+            
+            at.translate(this.posX, this.posY);
+            graficos.transform(at);
+            this.newimg=false;
         }
         
 
         // All drawings go here
         
-        g2.drawImage(image, 0, 0, this);
+        graficos.drawImage(image, 0, 0, this);
 
     }
 
@@ -112,27 +115,32 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
         //Zoom in
        
         if (e.getWheelRotation() < 0) {
-            zoomFactor *= 1.1;
+            FactorZoom *= 1.1;
             repaint();
         }
         //Zoom out
         if (e.getWheelRotation() > 0) {
-            zoomFactor /= 1.1;
+            FactorZoom /= 1.1;
             repaint();
         }
     }
-    public void newim(int center){
-        this.newimg=true;
-        this.center=center;
+   
+    public void newimg(int n){
+      
+       contador=n-1;
+       
+       
+        newimg=true;
+        repaint();
     }
     
     @Override
     public void mouseDragged(MouseEvent e) {
         Point curPoint = e.getLocationOnScreen();
-        xDiff = curPoint.x - startPoint.x;
-        yDiff = curPoint.y - startPoint.y;
+        difX = curPoint.x - inicio.x;
+        difY = curPoint.y - inicio.y;
 
-        dragger = true;
+        presionado = true;
         repaint();
 
     }
@@ -149,13 +157,13 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
 
     @Override
     public void mousePressed(MouseEvent e) {
-        released = false;
-        startPoint = MouseInfo.getPointerInfo().getLocation();
+        soltado = false;
+        inicio= MouseInfo.getPointerInfo().getLocation();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        released = true;
+        soltado = true;
         repaint();
     }
 

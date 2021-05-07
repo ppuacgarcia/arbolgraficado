@@ -11,9 +11,9 @@ import java.util.*;
 import javax.swing.*;
 
 
-public class ArbolExpresionGrafico extends JPanel 
+public class ArbolGraficado extends JPanel 
 {
-    private ArbolBB miArbol;
+    private Arbol miArbol;
     private HashMap posicionNodos = null;
     private HashMap subtreeSizes = null;
     private boolean dirty = true;
@@ -29,7 +29,7 @@ public class ArbolExpresionGrafico extends JPanel
      * @param miExpresion: dato de tipo ArbolExpresion que contiene el Arbol a
      * dibujar.
      */
-    public ArbolExpresionGrafico(ArbolBB miArbol) 
+    public ArbolGraficado(Arbol miArbol) 
     {
           this.miArbol = miArbol;
           this.setBackground(Color.WHITE);
@@ -112,7 +112,7 @@ public class ArbolExpresionGrafico extends JPanel
           center = right - rd.width - child2child/2;
       else if (left != Integer.MAX_VALUE)
           center = left + ld.width + child2child/2;
-      int width = fm.stringWidth(n.getDato()+"");
+      int width = fm.stringWidth(n.getValor()+"");
  
       posicionNodos.put(n,new Rectangle(center - width/2 - 3, top, width + 6, fm.getHeight()));
       
@@ -136,7 +136,7 @@ public class ArbolExpresionGrafico extends JPanel
      
      Rectangle r = (Rectangle) posicionNodos.get(n);
      g.draw(r);
-     g.drawString(n.getDato()+"", r.x + 3, r.y + yoffs);
+     g.drawString(n.getValor()+"", r.x + 3, r.y + yoffs);
    
      if (puntox != Integer.MAX_VALUE)
        

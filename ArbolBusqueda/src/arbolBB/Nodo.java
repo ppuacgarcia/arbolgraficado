@@ -10,37 +10,58 @@ package arbolBB;
  * @author Toloza XD
  */
 public class Nodo {
-    private int dato;
-    private Nodo izq,der;
-
-    public Nodo(int dato, Nodo izq, Nodo der) {
-        this.dato = dato;
-        this.izq = izq;
-        this.der = der;
+    
+    private Nodo der;
+    private Nodo izq;
+    private int Valor;
+    private int altura;
+    private int fe;
+    
+    public Nodo() {
+        this.der = null;
+        this.izq = null;
+        this.Valor = 0;
+        this.altura = 0;
+        this.fe = 0;
     }
 
-    public int getDato() {
-        return dato;
-    }
-
-    public void setDato(int dato) {
-        this.dato = dato;
+    public Nodo getDer() {
+        return this.der;
     }
 
     public Nodo getIzq() {
-        return izq;
+        return this.izq;
+    }
+
+    public int getValor() {
+        return this.Valor;
+    }
+
+    public int getAltura() {
+        return this.altura;
+    }
+
+    public int getFe() {
+        return this.fe;
+    }
+
+    public void setDer(Nodo der) {
+        this.der = der;
     }
 
     public void setIzq(Nodo izq) {
         this.izq = izq;
     }
 
-    public Nodo getDer() {
-        return der;
+    public void setValor(int Valor) {
+        this.Valor = Valor;
     }
 
-    public void setDer(Nodo der) {
-        this.der = der;
+    public void setAltura(int altura) {
+        this.altura = altura;
     }
- 
+
+    public void setFe(int fe) {
+        this.fe = fe;
+    }
 }
