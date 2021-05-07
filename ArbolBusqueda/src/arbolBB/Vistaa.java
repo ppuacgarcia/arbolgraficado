@@ -157,6 +157,8 @@ public class Vistaa extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.getAccessibleContext().setAccessibleName("Arbol AVL");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
