@@ -239,13 +239,6 @@ public class Vistaa extends javax.swing.JFrame {
         this.jInternalFrame2.setBounds(tamaño);
         this.jInternalFrame2.setEnabled(false);
         this.jInternalFrame2.add(this.simulador.getDibujo(), BorderLayout.CENTER);
-        
-         
-        
-                  
-         
-         
-         
     }
     public BufferedImage getScreenShot(JPanel panelito){
             
