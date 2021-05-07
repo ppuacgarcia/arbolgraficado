@@ -35,7 +35,6 @@ public class Ventana extends javax.swing.JFrame {
     private ArbolSimulado simulador = new ArbolSimulado();
    /**/ private Zoom mainpanel;
    /**/ private BufferedImage imagenArbol;
-   /**/ private int sis;
    /**/ private int ancho=600;
    /**/ private int alto=300;
    
@@ -233,12 +232,10 @@ public class Ventana extends javax.swing.JFrame {
            
             this.ancho=this.ancho+55;
             this.alto=this.alto+40;
-            sis=(int) (bi.getWidth());
-            
             panelito.setSize((bi.getWidth()),0);
-            panelito.setLocation(sis+50, 0);
+            panelito.setLocation(bi.getWidth()+50, 0);
             panelito.paint(bi.getGraphics());
-            System.out.println(sis);
+            System.out.println(bi.getWidth());
             return bi;    
     }
 
