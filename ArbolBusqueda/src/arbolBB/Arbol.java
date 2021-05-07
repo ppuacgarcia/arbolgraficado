@@ -339,4 +339,10 @@ public class Arbol {
      public JPanel getdibujo() {
         return new ArbolGraficado(this);
     }
+     
+    public boolean Vaciar()
+    {
+        raiz = null;
+        return true;
+    }
 }

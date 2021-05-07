@@ -24,6 +24,8 @@ public class ArbolSimulado {
         return this.miArbol.getdibujo();
     }
   
-
+    public boolean Vaciar() {
+        return (this.miArbol.Vaciar());
+    }
     
 }
