@@ -10,21 +10,33 @@ package arbolBB;
  * @author Toloza XD
  */
 public class Nodo {
-    private int dato;
+    private int  valor;
     private Nodo izq,der;
 
-    public Nodo(int dato, Nodo izq, Nodo der) {
-        this.dato = dato;
+    public Nodo(int valor, Nodo izq, Nodo der) {
+        this.valor = valor;
         this.izq = izq;
         this.der = der;
     }
-
-    public int getDato() {
-        return dato;
+    
+    public Nodo(int valor) {
+        this.valor = valor;
+        this.izq = null;
+        this.der = null;
+    }
+    
+    public Nodo() {
+        this.valor = 0;
+        this.izq = null;
+        this.der = null;
     }
 
-    public void setDato(int dato) {
-        this.dato = dato;
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
     }
 
     public Nodo getIzq() {

@@ -165,7 +165,7 @@ public class MainPanel extends JPanel implements MouseWheelListener, MouseListen
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+   public void mouseExited(MouseEvent e) {
 
     }
 

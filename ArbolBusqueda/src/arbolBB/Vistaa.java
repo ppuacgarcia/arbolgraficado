@@ -32,7 +32,7 @@ import javax.swing.JPanel;
  */
 public class Vistaa extends javax.swing.JFrame {
 
-    private SimuladorArbolBinario simulador = new SimuladorArbolBinario();
+    private ArbolSimulado simulador = new ArbolSimulado();
     private MainPanel mainpanel;
     private  BufferedImage image;
     private int sis;
@@ -41,18 +41,9 @@ public class Vistaa extends javax.swing.JFrame {
     /**
      * Creates new form Vista
      */
-    public Vistaa() {
+    public Vistaa() 
+    {
         initComponents();
-        this.inicializar(false);
-
-
-    }
-
-    private void inicializar(boolean enable) {
-        this.InOrden.setEnabled(enable);
-       // this.PostOrden.setEnabled(enable);
-        this.PreOrden.setEnabled(enable);
-      
     }
 
     /**
@@ -65,13 +56,9 @@ public class Vistaa extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        impresion = new javax.swing.JTextArea();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jInternalFrame2 = new javax.swing.JInternalFrame();
         botonInsertar = new javax.swing.JButton();
-        InOrden = new javax.swing.JButton();
-        PreOrden = new javax.swing.JButton();
         txtdato = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
@@ -81,16 +68,6 @@ public class Vistaa extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Panel de Pruebas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
         jPanel2.setOpaque(false);
-
-        jScrollPane1.setOpaque(false);
-
-        impresion.setEditable(false);
-        impresion.setColumns(20);
-        impresion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        impresion.setRows(5);
-        impresion.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados de operaciones"));
-        impresion.setOpaque(false);
-        jScrollPane1.setViewportView(impresion);
 
         jDesktopPane1.setOpaque(false);
 
@@ -123,22 +100,6 @@ public class Vistaa extends javax.swing.JFrame {
             }
         });
 
-        InOrden.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        InOrden.setText("InOrden");
-        InOrden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InOrdenActionPerformed(evt);
-            }
-        });
-
-        PreOrden.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        PreOrden.setText("PreOrden");
-        PreOrden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PreOrdenActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,22 +114,13 @@ public class Vistaa extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(InOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(PreOrden)
-                                .addGap(4, 4, 4))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtdato, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(txtdato, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(343, 343, 343))
                     .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 3, Short.MAX_VALUE))
         );
@@ -177,18 +129,12 @@ public class Vistaa extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtdato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PreOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -221,8 +167,6 @@ public class Vistaa extends javax.swing.JFrame {
             if (this.simulador.insertar(dato)) {
                 //JOptionPane.showMessageDialog(null, "El dato fue insertado correctamente", " ...", 1);
                 
-                this.inicializar(true);
-                
                 complementos();
 
                  txtdato.setText("");
@@ -235,24 +179,6 @@ public class Vistaa extends javax.swing.JFrame {
         mover();
                 
     }//GEN-LAST:event_botonInsertarActionPerformed
-
-    private void InOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InOrdenActionPerformed
-        // TODO add your handling code here:
-        String recorrido = null;
-        recorrido = this.simulador.inOrden();
-        
-        this.impresion.setText("");
-        this.impresion.setText(recorrido);
-    }//GEN-LAST:event_InOrdenActionPerformed
-
-    private void PreOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreOrdenActionPerformed
-        // TODO add your handling code here:
-        String recorrido = null;
-        recorrido = this.simulador.preOrden();
-        
-        this.impresion.setText("");
-        this.impresion.setText(recorrido);
-    }//GEN-LAST:event_PreOrdenActionPerformed
     private void mover(){
         if(simulador.getDibujo()!=null){
            
@@ -361,15 +287,11 @@ public class Vistaa extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton InOrden;
-    private javax.swing.JButton PreOrden;
     private javax.swing.JButton botonInsertar;
-    private javax.swing.JTextArea impresion;
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtdato;
     // End of variables declaration//GEN-END:variables
 }
