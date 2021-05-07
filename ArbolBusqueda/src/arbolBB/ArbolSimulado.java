@@ -11,21 +11,22 @@ import javax.swing.JPanel;
  */
 public class ArbolSimulado {
 
-    Arbol miArbol = new Arbol();
+    Arbol grafico = new Arbol();
     
     public ArbolSimulado() {
     }
 
     public boolean insertar(Integer dato) {
-        return (this.miArbol.Insertar(dato));
+        return (this.grafico.Insertar(dato));
+    }
+    public boolean Vaciar() {
+        return (this.grafico.Vaciar());
     }
 
     public JPanel getDibujo() {
-        return this.miArbol.getdibujo();
+        return this.grafico.getdibujo();
     }
   
-    public boolean Vaciar() {
-        return (this.miArbol.Vaciar());
-    }
+    
     
 }
