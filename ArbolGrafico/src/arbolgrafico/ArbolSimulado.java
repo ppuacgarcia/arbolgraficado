@@ -1,5 +1,5 @@
 
-package arbolBB;
+package arbolgrafico;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
