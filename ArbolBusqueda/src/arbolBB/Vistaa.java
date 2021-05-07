@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 public class Vistaa extends javax.swing.JFrame {
 
     private ArbolSimulado simulador = new ArbolSimulado();
-    private MainPanel mainpanel;
+    private Zoom mainpanel;
     private  BufferedImage image;
     private int sis;
     private int widt=600;
@@ -189,12 +189,12 @@ public class Vistaa extends javax.swing.JFrame {
                 try{
                     
                     image = getScreenShot(this.simulador.getDibujo());
-                     mainpanel=new MainPanel(image);
+                     mainpanel=new Zoom(image);
                     mainpanel.setBounds(0, 0, image.getHeight(),image.getWidth());
                     mainpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     mainpanel.setForeground(Color.GRAY);
                     
-                    mainpanel.newim(sis);
+                    
                     
                  
                     this.jInternalFrame2.add(mainpanel, BorderLayout.CENTER);
