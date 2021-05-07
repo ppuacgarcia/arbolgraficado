@@ -168,6 +168,10 @@ public class Ventana extends javax.swing.JFrame {
                  txtdato.setText("");
                 
             }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "El numero indicado ya existe en el arbol", "Error", 0);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo insertar el valor en el arbol", "Error", 0);
 
