@@ -7,11 +7,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
-public class PanelFondo extends javax.swing.JPanel {
+public class Fondo extends javax.swing.JPanel {
 
     private String ruta;
 
-    public PanelFondo() {
+    public Fondo() {
         initComponents();
         this.setSize(933, 690);
         this.ruta = "";

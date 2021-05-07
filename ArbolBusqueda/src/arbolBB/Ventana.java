@@ -30,18 +30,18 @@ import javax.swing.JPanel;
  *
  * @author Toloza XD
  */
-public class Vistaa extends javax.swing.JFrame {
+public class Ventana extends javax.swing.JFrame {
 
     private ArbolSimulado simulador = new ArbolSimulado();
-    private Zoom mainpanel;
-    private  BufferedImage image;
-    private int sis;
-    private int widt=600;
-    private int eigt=300;
+   /**/ private Zoom mainpanel;
+   /**/ private  BufferedImage image;
+   /**/ private int sis;
+   /**/ private int widt=600;
+   /**/ private int eigt=300;
     /**
      * Creates new form Vista
      */
-    public Vistaa() 
+    public Ventana() 
     {
         initComponents();
     }
@@ -183,34 +183,29 @@ public class Vistaa extends javax.swing.JFrame {
         mover();
                 
     }//GEN-LAST:event_botonInsertarActionPerformed
-    private void mover(){
-        if(simulador.getDibujo()!=null){
-           
-                try{
-                    
-                    image = getScreenShot(this.simulador.getDibujo());
-                     mainpanel=new Zoom(image);
-                    mainpanel.setBounds(0, 0, image.getHeight(),image.getWidth());
-                    mainpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    mainpanel.setForeground(Color.GRAY);
-                    
-                    
-                    
-                 
-                    this.jInternalFrame2.add(mainpanel, BorderLayout.CENTER);
-                    mainpanel.setVisible(true);
-                   this.simulador.getDibujo().setVisible(false);
-                   
-                    
-                }catch (Exception e) {
-                    e.printStackTrace();
+   /**/ private void mover(){
+    /**/    if(simulador.getDibujo()!=null){
+    /**/       
+     /**/           try{
+     /**/               
+     /**/               image = getScreenShot(this.simulador.getDibujo());
+     /**/                mainpanel=new Zoom(image);
+    /**/                mainpanel.setBounds(0, 0, image.getHeight(),image.getWidth());
+    /**/                mainpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+     /**/               mainpanel.setForeground(Color.GRAY);
+     /**/
+      /**/              this.jInternalFrame2.add(mainpanel, BorderLayout.CENTER);
+       /**/             mainpanel.setVisible(true);
+        /**/           this.simulador.getDibujo().setVisible(false);
+    /**/          }catch (Exception e) {
+     /**/               e.printStackTrace();
                    
                 }
                // JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(image)));
         }
     }
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
-             setResizable(true);
+             
         try {
             this.simulador.Vaciar();
             
@@ -276,21 +271,23 @@ public class Vistaa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vistaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vistaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vistaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vistaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Vistaa().setVisible(true);
+                new Ventana().setVisible(true);
             }
         });
     }
