@@ -31,10 +31,15 @@ public class Arbol {
     }
     
     public boolean Insertar(Integer valor){
-        raiz = insertarNodo(valor, raiz);
-        RecalcularAlturas();
-        RecalcularFE();
-        return true;
+        
+        if (Existe(valor)==false)
+        {
+            raiz = insertarNodo(valor, raiz);
+            RecalcularAlturas();
+            RecalcularFE();
+            return true;
+        }
+        return false;
     }
     
     public Nodo insertarNodo(Integer valor, Nodo r){
@@ -344,5 +349,19 @@ public class Arbol {
     {
         raiz = null;
         return true;
+    }
+    
+    public boolean Existe(int dato) {
+        Nodo aux = raiz;
+        while (aux != null) {
+            if (dato == aux.getValor()) {
+                return true;
+            } else if (dato > aux.getValor()) {
+                aux = aux.getDer();
+            } else {
+                aux = aux.getIzq();
+            }
+        }
+        return false;
     }
 }
