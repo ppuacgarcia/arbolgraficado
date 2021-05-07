@@ -13,161 +13,119 @@ import javax.swing.*;
 
 public class ArbolGraficado extends JPanel 
 {
-    private Arbol miArbol;
-    private HashMap posicionNodos = null;
-    private HashMap subtreeSizes = null;
-    private boolean dirty = true;
-    private int parent2child = 20, child2child = 30;
-    private Dimension empty = new Dimension(0,0);
+    private final Arbol arbol;
+    private HashMap posicionN = null;
+    private HashMap TsubA = null;
+    private final int PH = 20;
+    private final int HH = 30;
+    private Dimension vacio = new Dimension(0,0);
     private FontMetrics fm = null;
+    private boolean lleno = true;
     
     
-    /**
-     * Constructor de la clase ArbolExpresionGrafico.
-     * El constructor permite inicializar los atributos de la clase ArbolExpresionGrafico
-     * y llama al método repaint(), que es el encargado de pintar el Arbol.
-     * @param miExpresion: dato de tipo ArbolExpresion que contiene el Arbol a
-     * dibujar.
-     */
+    
+    
     public ArbolGraficado(Arbol miArbol) 
-    {
-          this.miArbol = miArbol;
-          this.setBackground(Color.WHITE);
-          posicionNodos = new HashMap();
-          subtreeSizes = new HashMap();
-          dirty = true;
-          repaint();      
+    {     
+        this.setBackground(Color.WHITE);
+        posicionN = new HashMap();
+        TsubA = new HashMap();
+        this.arbol = miArbol;
+        lleno = true;
+        repaint();      
     }
 
-
-    /**
-     * Calcula las posiciones de los respectivos subárboles y de cada nodo que 
-     * forma parte de ese subárbol, para conocer en que posición van a ir dibujados
-     * los rectángulos representativos del árbol de la expresión.
-     */
     private void calcularPosiciones() 
     {
-         posicionNodos.clear();
-         subtreeSizes.clear();
-         Nodo root = this.miArbol.getRaiz();
+         posicionN.clear();
+         TsubA.clear();
+         Nodo root = this.arbol.getRaiz();
          if (root != null) 
          {
-             calcularTamañoSubarbol(root);
-             calcularPosicion(root, Integer.MAX_VALUE, Integer.MAX_VALUE, 0);
+           TamanioSubArbol(root);
+           calcularPosicion(root, Integer.MAX_VALUE, Integer.MAX_VALUE, 0);
          }
     }
     
-    /**
-     * Calcula el tamaño de cada subárbol y lo agrega al objeto subtreeSizes de la clase
-     * de tipo HashMap que va a contener la coleccion de todos los 
-     * subárboles que contiene un arbol.
-     * @param n:Objeto de la clase NodoB <T> que se utiliza como
-     * referencia calcular el tamaño de cada subárbol.
-     * @return Dimension con el tamaño de cada subárbol.
-     */
-    private Dimension calcularTamañoSubarbol(Nodo n) 
+    
+    private Dimension TamanioSubArbol(Nodo num) 
     {
-          if (n == null) 
-              return new Dimension(0,0);
- 
-          Dimension ld = calcularTamañoSubarbol(n.getIzq());
-          Dimension rd = calcularTamañoSubarbol(n.getDer());
+        
+          if (num == null) {
+            return new Dimension(0,0);
+          }
+          Dimension dimI = TamanioSubArbol(num.getIzq());
+          Dimension dimD = TamanioSubArbol(num.getDer());
           
-          int h = fm.getHeight() + parent2child + Math.max(ld.height, rd.height);
-          int w = ld.width + child2child + rd.width;
+          int h = fm.getHeight() + PH + Math.max(dimI.height, dimD.height);
+          int w = dimI.width + HH + dimD.width;
           
-          Dimension d = new Dimension(w, h);
-          subtreeSizes.put(n, d);
+          Dimension dim = new Dimension(w, h);
+          TsubA.put(num, dim);
           
-          return d;
+          return dim;
     }
-    
-    
-    /**
-     * Calcula la ubicación de cada nodo de cada subárbol y agrega cada nodo con 
-     * un objeto de tipo Rectangule que tiene la ubicación y la información específica de dónde 
-     * va a ser dibujado.
-     * @param n: Objeto de tipo NodoB <T> que se utiliza como
-     * referencia para calcular la ubicación de cada nodo.
-     * @param left: int con alineación y orientación a la izquierda.
-     * @param right: int con alineación y orientación a la derecha.
-     * @param top: int con el tope.
-     */
-    private void calcularPosicion(Nodo n, int left, int right, int top) 
+    private void calcularPosicion(Nodo num, int iz, int der, int al) 
     {
-      if (n == null) 
+      if (num == null){ 
           return;
-      
-      Dimension ld = (Dimension) subtreeSizes.get(n.getIzq());
-      if (ld == null) 
-          ld = empty;
-      
-      Dimension rd = (Dimension) subtreeSizes.get(n.getDer());
-      if (rd == null) 
-          rd = empty;
-      
+      }
+      Dimension ld = (Dimension) TsubA.get(num.getIzq());
+      if (ld == null) {
+          ld = vacio;
+      }
+      Dimension rd = (Dimension) TsubA.get(num.getDer());
+      if (rd == null) {
+          rd = vacio;
+      }
       int center = 0;
       
-      if (right != Integer.MAX_VALUE)
-          center = right - rd.width - child2child/2;
-      else if (left != Integer.MAX_VALUE)
-          center = left + ld.width + child2child/2;
-      int width = fm.stringWidth(n.getValor()+"");
- 
-      posicionNodos.put(n,new Rectangle(center - width/2 - 3, top, width + 6, fm.getHeight()));
+      if (der != Integer.MAX_VALUE){
+          center = der - rd.width - HH/2;
+      }else if (iz != Integer.MAX_VALUE){
+          center = iz + ld.width + HH/2;
+      }
+      int width = fm.stringWidth(num.getValor()+"");
       
-      calcularPosicion(n.getIzq(), Integer.MAX_VALUE, center - child2child/2, top + fm.getHeight() + parent2child);
-      calcularPosicion(n.getDer(), center + child2child/2, Integer.MAX_VALUE, top + fm.getHeight() + parent2child);
+      
+      posicionN.put(num,new Rectangle(center - width/2 - 3, al, width + 6, fm.getHeight()));
+      int q=al + fm.getHeight() + PH;
+      calcularPosicion(num.getIzq(), Integer.MAX_VALUE, center - HH/2, q);
+      calcularPosicion(num.getDer(), center + HH/2, Integer.MAX_VALUE, q);
     }
-    
-    /**
-     * Dibuja el árbol teniendo en cuenta las ubicaciones de los nodos y los 
-     * subárboles calculadas anteriormente.
-     * @param g: Objeto de la clase Graphics2D que permite realizar el dibujo de las líneas, rectangulos y del String de la información que contiene el Nodo.
-     * @param n: Objeto de la clase NodoB <T> que se utiliza como referencia para dibujar el árbol.
-     * @param puntox: int con la posición en x desde donde se va a dibujar la línea hasta el siguiente hijo.
-     * @param puntoy: int con la posición en y desde donde se va a dibujar la línea hasta el siguiente hijo.
-     * @param yoffs: int con la altura del FontMetrics.
-     */
-    private void dibujarArbol(Graphics2D g, Nodo n, int puntox, int puntoy, int yoffs) 
+    private void dibujarArbol(Graphics2D graph, Nodo num, int ypos, int puntoX, int puntoY) 
     {
-     if (n == null) 
+     if (num == null){
          return;
+     }
+     Rectangle r = (Rectangle) posicionN.get(num);
+     graph.draw(r);
+     graph.drawString(num.getValor()+"", r.x + 3, r.y + ypos);
+     int xp=r.x + r.width/2;
+     if (puntoX != Integer.MAX_VALUE){  
+        graph.drawLine(puntoX, puntoY, xp, r.y);
+     }
      
-     Rectangle r = (Rectangle) posicionNodos.get(n);
-     g.draw(r);
-     g.drawString(n.getValor()+"", r.x + 3, r.y + yoffs);
-   
-     if (puntox != Integer.MAX_VALUE)
-       
-     g.drawLine(puntox, puntoy, (int)(r.x + r.width/2), r.y);
+     int yp=r.y + r.height;
+     dibujarArbol(graph, num.getIzq(), xp, yp, ypos);
+     dibujarArbol(graph, num.getDer(), xp, yp, ypos);
      
-     dibujarArbol(g, n.getIzq(), (int)(r.x + r.width/2), r.y + r.height, yoffs);
-     dibujarArbol(g, n.getDer(), (int)(r.x + r.width/2), r.y + r.height, yoffs);
-     
-   }
-    
-
-   /**
-     * Sobreescribe el metodo paint y se encarga de pintar todo el árbol.
-     * @param g: Objeto de la clase Graphics.
-     */
-    @Override
-   public void paint(Graphics g) 
+   }  
+   public void paint(Graphics graph) 
    {
-         //super.paint(g);
-         fm = g.getFontMetrics();
+        
+         fm = graph.getFontMetrics();
 
-         if (dirty) 
+         if (lleno==true) 
          {
            calcularPosiciones();
-           dirty = false;
+           lleno = false;
          }
          
-         Graphics2D g2d = (Graphics2D) g;
-         g2d.translate(getWidth() / 2, parent2child);
-         dibujarArbol(g2d, this.miArbol.getRaiz(), Integer.MAX_VALUE, Integer.MAX_VALUE, 
-                  fm.getLeading() + fm.getAscent());
+         Graphics2D graficos = (Graphics2D) graph;
+         graficos.translate(getWidth() / 2, PH);
+         dibujarArbol(graficos, this.arbol.getRaiz(), Integer.MAX_VALUE, Integer.MAX_VALUE, 
+         fm.getLeading() + fm.getAscent());
          fm = null;
    }
    
